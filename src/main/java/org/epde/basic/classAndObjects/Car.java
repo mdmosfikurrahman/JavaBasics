@@ -2,9 +2,9 @@ package org.epde.basic.classAndObjects;
 
 public class Car {
     // Instance variables
-    private String make;
-    private String model;
-    private String color;
+    private final String make;
+    private final String model;
+    private final String color;
     private boolean engineRunning;
 
     // Constructor
