@@ -113,7 +113,7 @@ In addition to defining properties and methods, a class can also include constru
     ```
     In this example, we create a new Scanner object using `System.in` as the input source. Then we prompt the user to enter their name, read in their input using the `nextLine()` method, and store it in a String variable called name. Finally, we print a message using the user's name.
 
-2. Writing output: To write output in Java, you can use the `System.out` object. Here's an example:
+2. **Writing output:** To write output in Java, you can use the `System.out` object. Here's an example:
     ```java
     int x = 10;
     System.out.println("The value of x is: " + x);
