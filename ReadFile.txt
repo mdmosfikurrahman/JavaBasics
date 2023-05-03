@@ -1,0 +1,1 @@
+This is content that is read from Java Reader.

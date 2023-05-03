@@ -1,4 +1,4 @@
-package org.epde.starter;
+package org.epde.basic.starter;
 
 public class HelloWorld {
     public static void main(String[] args) {
