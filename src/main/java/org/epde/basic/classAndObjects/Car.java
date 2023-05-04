@@ -4,11 +4,11 @@ public class Car {
     // Instance variables
     private final String make;
     private final String model;
-    private final String color;
+    private final Color color;
     private boolean engineRunning;
 
     // Constructor
-    public Car(String make, String model, String color) {
+    public Car(String make, String model, Color color) {
         this.make = make;
         this.model = model;
         this.color = color;
@@ -34,7 +34,7 @@ public class Car {
         return this.model;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return this.color;
     }
 

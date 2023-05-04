@@ -160,3 +160,17 @@ In addition to defining properties and methods, a class can also include constru
 4. **Finally blocks:** The finally block is used to execute code regardless of whether an exception is thrown or not. This is useful for cleaning up resources, such as closing files or database connections.
 5. **Catching multiple exceptions:** You can use multiple catch blocks to catch different types of exceptions that might occur in your code. This allows you to handle each exception type differently.
 6. **Custom exceptions:** You can also create your own custom exceptions in Java. This is useful if you want to define your own exception types that are specific to your application.
+
+
+## Object Oriented Programming
+
+
+[Here](https://github.com/mdmosfikurrahman/JavaBasics/tree/main/src/main/java/org/epde/basic), I cover the following:
+1. **Variables and data types:** Cover the basic data types in Java, such as int, float, double, boolean, and String. Also, explain how to declare and initialize variables.
+2. **Operators and expressions:** Cover the basic arithmetic, comparison, and logical operators in Java. Also, explain how to use expressions to perform calculations.
+3. **Control structures:** Explain how to use conditional statements like if, else-if, and switch, as well as looping statements like for, while, and do-while.
+4. **Arrays:** Cover the basics of creating and manipulating arrays in Java.
+5. **Methods:** Explain how to create and use methods in Java, as well as how to pass parameters to methods and return values from methods.
+6. **Classes and objects:** Cover the basics of object-oriented programming in Java, including how to define classes, create objects, and access object properties and methods.
+7. **Input and output:** Explain how to get input from the user using the Scanner class and how to output text using the System.out.println() method.
+8. **Exception handling:** Cover the basics of exception handling in Java, including how to catch and handle exceptions using try-catch blocks.

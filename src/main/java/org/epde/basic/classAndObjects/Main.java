@@ -1,9 +1,9 @@
 package org.epde.basic.classAndObjects;
 
-public class CarMain {
+public class Main {
     public static void main(String[] args) {
         // Create a new Car object
-        Car myCar = new Car("Honda", "Civic", "blue");
+        Car myCar = new Car("Honda", "Civic", Color.BLUE);
 
         // Call the startEngine() method
         myCar.startEngine();
@@ -18,5 +18,11 @@ public class CarMain {
 
         // Call the stopEngine() method
         myCar.stopEngine();
+
+    Rectangle rect = new Rectangle(5, 10);
+        double area = rect.getArea();
+        double perimeter = rect.getPerimeter();
+        System.out.println("Area: " + area);
+        System.out.println("Perimeter: " + perimeter);
     }
 }
