@@ -11,7 +11,6 @@ public class RemoveAndReplaceDuplicatesInJSONArrayFile {
 
     public static void main(String[] args) {
         try {
-            // Replace "input.json" with the path to your JSON file
             String jsonFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\final\\combine\\bkmea_combined.json";
             String jsonArrayKey = "binData"; // Replace with the key of the JSON array to check
 

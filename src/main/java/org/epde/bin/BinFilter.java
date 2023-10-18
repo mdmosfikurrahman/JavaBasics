@@ -14,7 +14,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BinFilter {
     private static final String BGMEA_AUTH_API_URL = "http://182.160.98.85:90/api/v1/token/access";
@@ -24,13 +26,16 @@ public class BinFilter {
     private static final String CLIENT_SECRET = "7487466ac007d96c3c246291d1fc2d54884a8349f83a64a0c75cade982173214";
     private static final String START_DATE = "2022-07-01";
     private static final String END_DATE = "2023-09-01";
+    private static final String COMBINED_BIN_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/all_bins.json";
+    private static final String BGMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bgmea_bins.json";
+    private static final String BKMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bkmea_bins.json";
+    private static final String INVALID_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/invalid_bins.json";
 
     public static void main(String[] args) {
         List<String> bgmeaBins = new ArrayList<>();
         List<String> bkmeaBins = new ArrayList<>();
         List<String> invalidBins = new ArrayList<>();
 
-        // Attempt to obtain the bearer token
         String bearerToken = getBearerToken();
         if (bearerToken == null) {
             System.err.println("Failed to obtain the bearer token. Exiting.");
@@ -38,7 +43,6 @@ public class BinFilter {
         }
 
         try {
-            // Load JSON data from the file
             JSONObject inputJson = loadJsonFromFile();
 
             JSONArray binData = inputJson.getJSONArray("binData");
@@ -55,16 +59,13 @@ public class BinFilter {
                 invalidBins.add(bin);
             }
 
-            // Save results to JSON files
-            saveToJsonFile(bgmeaBins, "E:/Project/JavaBasics/src/main/resources/new_combined_bins/new_bgmea_bins.json");
-            saveToJsonFile(bkmeaBins, "E:/Project/JavaBasics/src/main/resources/new_combined_bins/new_bkmea_bins.json");
-            saveToJsonFile(invalidBins, "E:/Project/JavaBasics/src/main/resources/new_combined_bins/invalid_bins.json");
+            saveToJsonFile(bgmeaBins, BGMEA_BIN_DESTINATION_FILE_PATH);
+            saveToJsonFile(bkmeaBins, BKMEA_BIN_DESTINATION_FILE_PATH);
+            saveToJsonFile(invalidBins, INVALID_BIN_DESTINATION_FILE_PATH);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Total BINS: " + (bkmeaBins.size() + bgmeaBins.size() + invalidBins.size()));
     }
 
     private static String createBgmeaApiUrl(String bin) {
@@ -76,13 +77,25 @@ public class BinFilter {
     }
 
     private static boolean checkBinAndAdd(String apiUrl, String token, List<String> binList, String bin) {
-        boolean isBin = (token != null
-                ? checkBgmeaBin(apiUrl, token)
-                : checkBkmeaBin(apiUrl));
-        if (isBin) {
-            binList.add(bin);
+        if (isValidBinNumber(bin)) {
+            boolean isBin = (token != null
+                    ? checkBgmeaBin(apiUrl, token)
+                    : checkBkmeaBin(apiUrl));
+            if (isBin) {
+                binList.add(bin);
+            }
+            return isBin;
+        } else {
+            return false;
         }
-        return isBin;
+    }
+
+    private static boolean isValidBinNumber(String binNumber) {
+        if (binNumber.length() != 14) {
+            return false;
+        }
+
+        return binNumber.charAt(0) == '0' && binNumber.charAt(10) == '0';
     }
 
     private static String getBearerToken() {
@@ -110,7 +123,7 @@ public class BinFilter {
     }
 
     private static JSONObject loadJsonFromFile() throws IOException {
-        try (FileReader fileReader = new FileReader("E:/Project/JavaBasics/src/main/resources/new_combined_bins/new_combined_bins.json")) {
+        try (FileReader fileReader = new FileReader(COMBINED_BIN_FILE_PATH)) {
             JSONTokener jsonTokener = new JSONTokener(fileReader);
             return new JSONObject(jsonTokener);
         }
@@ -159,12 +172,15 @@ public class BinFilter {
     }
 
     private static void saveToJsonFile(List<String> bins, String filePath) {
+        Set<String> uniqueBins = new HashSet<>(bins);
+        List<String> uniqueBinList = new ArrayList<>(uniqueBins);
+
         JSONObject binJson = new JSONObject();
-        binJson.put("binData", new JSONArray(bins));
+        binJson.put("binData", new JSONArray(uniqueBinList));
 
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             binJson.write(fileWriter);
-            System.out.println("Total " + bins.size() + " BINs saved in " + filePath);
+            System.out.println("Total " + uniqueBinList.size() + " unique BINs saved in " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
