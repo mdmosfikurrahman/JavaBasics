@@ -56,9 +56,9 @@ public class BinFilter {
             }
 
             // Save results to JSON files
-            saveToJsonFile(bgmeaBins, "new_bgmea_bins.json");
-            saveToJsonFile(bkmeaBins, "new_bkmea_bins.json");
-            saveToJsonFile(invalidBins, "invalid_bins.json");
+            saveToJsonFile(bgmeaBins, "E:/Project/JavaBasics/src/main/resources/new_combined_bins/new_bgmea_bins.json");
+            saveToJsonFile(bkmeaBins, "E:/Project/JavaBasics/src/main/resources/new_combined_bins/new_bkmea_bins.json");
+            saveToJsonFile(invalidBins, "E:/Project/JavaBasics/src/main/resources/new_combined_bins/invalid_bins.json");
 
         } catch (IOException e) {
             e.printStackTrace();
