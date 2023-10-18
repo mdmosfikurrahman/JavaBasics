@@ -26,15 +26,15 @@ public class BinFilter {
     private static final String CLIENT_SECRET = "7487466ac007d96c3c246291d1fc2d54884a8349f83a64a0c75cade982173214";
     private static final String START_DATE = "2022-07-01";
     private static final String END_DATE = "2023-09-01";
-    private static final String COMBINED_BIN_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/all_bins.json";
-    private static final String BGMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bgmea_bins.json";
-    private static final String BKMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bkmea_bins.json";
-    private static final String INVALID_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/invalid_bins.json";
+    private static final String COMBINED_BIN_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/all_new_bins.json";
+    private static final String BGMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bgmea_from_new_bins.json";
+    private static final String BKMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bkmea_from_new_bins.json";
+    private static final String INACTIVE_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/inactive_from_new_bins.json";
 
     public static void main(String[] args) {
         List<String> bgmeaBins = new ArrayList<>();
         List<String> bkmeaBins = new ArrayList<>();
-        List<String> invalidBins = new ArrayList<>();
+        List<String> inactiveBins = new ArrayList<>();
 
         String bearerToken = getBearerToken();
         if (bearerToken == null) {
@@ -56,16 +56,21 @@ public class BinFilter {
                     continue;
                 }
 
-                invalidBins.add(bin);
+                inactiveBins.add(bin);
             }
 
-            saveToJsonFile(bgmeaBins, BGMEA_BIN_DESTINATION_FILE_PATH);
-            saveToJsonFile(bkmeaBins, BKMEA_BIN_DESTINATION_FILE_PATH);
-            saveToJsonFile(invalidBins, INVALID_BIN_DESTINATION_FILE_PATH);
+            saveAndPrint("From new BINs - BGMEA ", bgmeaBins, BGMEA_BIN_DESTINATION_FILE_PATH);
+            saveAndPrint("From new BINs - BKMEA ", bkmeaBins, BKMEA_BIN_DESTINATION_FILE_PATH);
+            saveAndPrint("From new BINs - INACTIVE ", inactiveBins, INACTIVE_BIN_DESTINATION_FILE_PATH);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void saveAndPrint(String label, List<String> bins, String destinationFilePath) {
+        System.out.print(label + ": ");
+        saveToJsonFile(bins, destinationFilePath);
     }
 
     private static String createBgmeaApiUrl(String bin) {
@@ -180,7 +185,7 @@ public class BinFilter {
 
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             binJson.write(fileWriter);
-            System.out.println("Total " + uniqueBinList.size() + " unique BINs saved in " + filePath);
+            System.out.println("Total " + uniqueBinList.size() + " BINs saved in " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

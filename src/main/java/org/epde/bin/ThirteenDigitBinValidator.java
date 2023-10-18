@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Main {
+public class ThirteenDigitBinValidator {
     private static JSONObject loadJsonFromFile() throws IOException {
         try (FileReader fileReader = new FileReader("E:\\Project\\JavaBasics\\src\\main\\resources\\all\\bgmea_all_bins.json")) {
             JSONTokener jsonTokener = new JSONTokener(fileReader);
@@ -47,9 +47,9 @@ public class Main {
         saveJsonToFile("E:\\Project\\JavaBasics\\src\\main\\resources\\all\\valid_bins.json", validJson);
         saveJsonToFile("E:\\Project\\JavaBasics\\src\\main\\resources\\all\\invalid_bins.json", invalidJson);
 
-        System.out.println("Total BGMEA BINs: " + (validBinDataArray.length() + invalidBinDataArray.length()));
-        System.out.println("Valid BGMEA BINs: " + validBinDataArray.length());
-        System.out.println("Invalid BGMEA BINs: " + invalidBinDataArray.length());
+        System.out.println("Provided BGMEA BINs: " + (validBinDataArray.length() + invalidBinDataArray.length()));
+        System.out.println("13 Digit's BGMEA BINs: " + validBinDataArray.length());
+        System.out.println("Not 13 Digit's BGMEA BINs: " + invalidBinDataArray.length());
     }
 
     private static boolean isValidBinNumber(String binNumber) {
