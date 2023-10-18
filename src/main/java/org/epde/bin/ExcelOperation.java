@@ -1,4 +1,4 @@
-package org.epde;
+package org.epde.bin;
 
 import java.io.*;
 import java.util.HashMap;

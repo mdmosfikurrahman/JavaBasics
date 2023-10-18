@@ -1,4 +1,4 @@
-package org.epde;
+package org.epde.bin;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

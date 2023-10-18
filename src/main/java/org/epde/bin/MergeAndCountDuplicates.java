@@ -1,4 +1,4 @@
-package org.epde;
+package org.epde.bin;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;

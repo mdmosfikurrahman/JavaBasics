@@ -1,4 +1,4 @@
-package org.epde;
+package org.epde.bin;
 
 import com.google.gson.Gson;
 import com.opencsv.CSVReader;
