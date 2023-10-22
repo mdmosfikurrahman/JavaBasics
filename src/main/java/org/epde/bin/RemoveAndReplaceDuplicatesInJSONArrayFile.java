@@ -11,8 +11,8 @@ public class RemoveAndReplaceDuplicatesInJSONArrayFile {
 
     public static void main(String[] args) {
         try {
-            String jsonFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\final\\combine\\bkmea_combined.json";
-            String jsonArrayKey = "binData"; // Replace with the key of the JSON array to check
+            String jsonFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\bins\\all_new_bins.json";
+            String jsonArrayKey = "binData";
 
             String jsonString = readJSONFile(jsonFilePath);
             JSONObject jsonObject = new JSONObject(jsonString);

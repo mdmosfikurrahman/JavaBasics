@@ -46,8 +46,9 @@ public class BinFilter {
             JSONObject inputJson = loadJsonFromFile();
 
             JSONArray binData = inputJson.getJSONArray("binData");
+            int totalBins = binData.length();
 
-            for (int i = 0; i < binData.length(); i++) {
+            for (int i = 0; i < totalBins; i++) {
                 String bin = binData.getString(i);
                 String bgmeaUrl = createBgmeaApiUrl(bin);
                 String bkmeaUrl = createBkmeaApiUrl(bin);
@@ -57,13 +58,18 @@ public class BinFilter {
                 }
 
                 inactiveBins.add(bin);
+
+                System.out.print("\r[" + getProgressBar(i + 1, totalBins) + "] " + String.format("%.1f%%", (double) (i + 1) / totalBins * 100) + " - Processed BIN: " + bin);
+
+                Thread.sleep(100);
             }
 
-            saveAndPrint("From new BINs - BGMEA ", bgmeaBins, BGMEA_BIN_DESTINATION_FILE_PATH);
-            saveAndPrint("From new BINs - BKMEA ", bkmeaBins, BKMEA_BIN_DESTINATION_FILE_PATH);
-            saveAndPrint("From new BINs - INACTIVE ", inactiveBins, INACTIVE_BIN_DESTINATION_FILE_PATH);
+            System.out.println();
+            saveAndPrint("BGMEA ", bgmeaBins, BGMEA_BIN_DESTINATION_FILE_PATH);
+            saveAndPrint("BKMEA ", bkmeaBins, BKMEA_BIN_DESTINATION_FILE_PATH);
+            saveAndPrint("INACTIVE ", inactiveBins, INACTIVE_BIN_DESTINATION_FILE_PATH);
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -185,7 +191,7 @@ public class BinFilter {
 
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             binJson.write(fileWriter);
-            System.out.println("Total " + uniqueBinList.size() + " BINs saved in " + filePath);
+            System.out.println("Total " + uniqueBinList.size() + " BINs saved.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -203,5 +209,21 @@ public class BinFilter {
 
             return new JSONObject(response.toString());
         }
+    }
+
+    private static String getProgressBar(int completed, int total) {
+        int progressBarWidth = 40;
+        double progress = (double) completed / total;
+        int numCharsToDisplay = (int) (progress * progressBarWidth);
+
+        StringBuilder progressBar = new StringBuilder();
+        for (int i = 0; i < progressBarWidth; i++) {
+            if (i < numCharsToDisplay) {
+                progressBar.append("=");
+            } else {
+                progressBar.append(" ");
+            }
+        }
+        return progressBar.toString();
     }
 }
