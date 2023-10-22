@@ -34,7 +34,7 @@ public class SplitBinsToJsonFiles {
                 binDataList.add(bin.asText());
             }
 
-            int chunkSize = 50;
+            int chunkSize = 10;
             int fileCount = 0;
             for (int i = 0; i < binDataList.size(); i += chunkSize) {
                 List<String> chunk = binDataList.subList(i, Math.min(i + chunkSize, binDataList.size()));
