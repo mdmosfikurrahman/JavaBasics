@@ -5,7 +5,7 @@ import java.io.File;
 public class ProjectStructureAnalyzer {
 
     public static void main(String[] args) {
-        String projectPath = "F:\\CBMS\\Data Fetcher\\data-fetcher\\src";
+        String projectPath = "E:\\Project\\RandomThings\\src\\main\\java\\com\\epde\\rt";
         File projectDirectory = new File(projectPath);
 
         if (projectDirectory.exists() && projectDirectory.isDirectory()) {
