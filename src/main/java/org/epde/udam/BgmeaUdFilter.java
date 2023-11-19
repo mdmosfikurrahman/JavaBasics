@@ -1,4 +1,4 @@
-package org.epde;
+package org.epde.udam;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -14,7 +14,7 @@ import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class UdFilter {
+public class BgmeaUdFilter {
 
     private static final String BGMEA_AUTH_API_URL = "http://182.160.98.85:90/api/v1/token/access";
     private static final String UD_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/ud.json";
@@ -76,7 +76,7 @@ public class UdFilter {
             if (response.getStatusLine().getStatusCode() == 200) {
                 return new JSONObject(EntityUtils.toString(response.getEntity()));
             } else {
-                System.err.println("Failed to obtain UD details. Status code: " + response.getStatusLine().getStatusCode());
+                System.err.println("Failed to obtain details. Status code: " + response.getStatusLine().getStatusCode());
             }
         } catch (IOException e) {
             e.printStackTrace();
