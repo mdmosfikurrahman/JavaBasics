@@ -26,10 +26,10 @@ public class BinFilter {
     private static final String CLIENT_SECRET = "7487466ac007d96c3c246291d1fc2d54884a8349f83a64a0c75cade982173214";
     private static final String START_DATE = "2022-07-01";
     private static final String END_DATE = "2023-09-01";
-    private static final String COMBINED_BIN_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/all_bins.json";
-    private static final String BGMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bgmea_bins.json";
-    private static final String BKMEA_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/bkmea_bins.json";
-    private static final String INACTIVE_BIN_DESTINATION_FILE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/inactive_bins.json";
+    private static final String COMBINED_BIN_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\bins\\all_bins.json";
+    private static final String BGMEA_BIN_DESTINATION_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\bins\\bgmea_bins.json";
+    private static final String BKMEA_BIN_DESTINATION_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\bins\\bkmea_bins.json";
+    private static final String INACTIVE_BIN_DESTINATION_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\bins\\inactive_bins.json";
 
     public static void main(String[] args) {
         List<String> bgmeaBins = new ArrayList<>();

@@ -13,8 +13,8 @@ import java.util.List;
 public class CSVtoJSONConverter {
 
     public static void main(String[] args) {
-        String csvFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\all\\bgmea_all_bins.csv"; // Replace with your CSV file path
-        String jsonFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\all\\bgmea_all_bins.json"; // Replace with the desired JSON file path
+        String csvFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\Membership_Number.csv"; // Replace with your CSV file path
+        String jsonFilePath = "E:\\Project\\JavaBasics\\src\\main\\resources\\fromDbMembershipNo.json"; // Replace with the desired JSON file path
 
         try {
             List<String> binDataList = readCSV(csvFilePath);
@@ -53,14 +53,14 @@ public class CSVtoJSONConverter {
     }
 
     static class BinDataContainer {
-        private final List<String> binData;
+        private final List<String> regNo;
 
         public BinDataContainer(List<String> binData) {
-            this.binData = binData;
+            this.regNo = binData;
         }
 
         public List<String> getBinData() {
-            return binData;
+            return regNo;
         }
     }
 }

@@ -5,7 +5,7 @@ import java.io.File;
 public class ProjectStructureAnalyzer {
 
     public static void main(String[] args) {
-        String projectPath = "E:\\Project\\RandomThings\\src\\main\\java\\com\\epde\\rt";
+        String projectPath = "E:\\Project\\Role Based Authentication\\SpringAuth_Basic\\src\\main";
         File projectDirectory = new File(projectPath);
 
         if (projectDirectory.exists() && projectDirectory.isDirectory()) {
