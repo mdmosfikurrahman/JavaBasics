@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CountBinNumbers {
-    private static final String BASE_PATH = "E:/Project/JavaBasics/src/main/resources/bins/";
+    private static final String BASE_PATH = "G:/Personal Project/JavaBasics/src/main/resources/bins/";
     public static void main(String[] args) {
 
         try {

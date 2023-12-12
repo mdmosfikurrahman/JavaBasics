@@ -19,13 +19,13 @@ import java.util.List;
 import java.util.Set;
 
 public class MemberFilter {
-    private static final String BGMEA_AUTH_API_URL = "http://182.160.98.85:90/api/v1/token/access";
+    private static final String BGMEA_AUTH_API_URL = "http://36.255.69.82:81/api/v1/token/access";
     private static final String CLIENT_ID = "36aab894-f11b-42cd-8874-8797e0a3f062";
     private static final String CLIENT_SECRET = "7487466ac007d96c3c246291d1fc2d54884a8349f83a64a0c75cade982173214";
-    private static final String BGMEA_API_URL = "http://182.160.98.85:90/api/v1/member/infos";
-    private static final String COMBINED_REG_NO_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\members\\regNo.json";
-    private static final String ACTIVE_REG_NO_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\members\\active.json";
-    private static final String INACTIVE_REG_NO_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\members\\inactive.json";
+    private static final String BGMEA_API_URL = "http://36.255.69.82:81/api/v1/member/infos";
+    private static final String COMBINED_REG_NO_FILE_PATH = "G:\\Personal Project\\JavaBasics\\src\\main\\resources\\new\\members\\regNo.json";
+    private static final String ACTIVE_REG_NO_FILE_PATH = "G:\\Personal Project\\JavaBasics\\src\\main\\resources\\new\\members\\active.json";
+    private static final String INACTIVE_REG_NO_FILE_PATH = "G:\\Personal Project\\JavaBasics\\src\\main\\resources\\new\\members\\inactive.json";
 
     private static String getBearerToken() {
         String requestBody = "{\"clientId\": \"" + CLIENT_ID + "\", \"clientSecret\": \"" + CLIENT_SECRET + "\"}";
@@ -142,7 +142,7 @@ public class MemberFilter {
             int totalRegNos = regNo.length();
 
             for (int i = 0; i < totalRegNos; i++) {
-                String memberShipNo = regNo.getString(i);
+                String memberShipNo = regNo.get(i).toString();
                 String bgmeaUrl = createBgmeaApiUrl(memberShipNo);
 
                 boolean isActive = checkBinAndAdd(bgmeaUrl, bearerToken, activeMembers, memberShipNo);
@@ -157,18 +157,22 @@ public class MemberFilter {
                 Thread.sleep(100);
             }
 
+            System.out.println();
+            System.out.println("Active Members: " + (long) activeMembers.size());
+            System.out.println();
+            System.out.println("Inactive Members: " + (long) inactiveMembers.size());
+
 
             System.out.println();
-            saveAndPrint("ACTIVE ", activeMembers, ACTIVE_REG_NO_FILE_PATH);
-            saveAndPrint("INACTIVE ", inactiveMembers, INACTIVE_REG_NO_FILE_PATH);
+            saveAndPrint(activeMembers, ACTIVE_REG_NO_FILE_PATH);
+            saveAndPrint(inactiveMembers, INACTIVE_REG_NO_FILE_PATH);
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private static void saveAndPrint(String label, List<Integer> regNo, String destinationFilePath) {
-        System.out.print(label + ": ");
+    private static void saveAndPrint(List<Integer> regNo, String destinationFilePath) {
         saveToJsonFile(regNo, destinationFilePath);
     }
 
@@ -181,7 +185,6 @@ public class MemberFilter {
 
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             binJson.write(fileWriter);
-            System.out.println("Total " + uniqueRegNoList.size() + " RegNos saved.");
         } catch (IOException e) {
             e.printStackTrace();
         }
