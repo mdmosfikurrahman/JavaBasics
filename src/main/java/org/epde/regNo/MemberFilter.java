@@ -23,9 +23,9 @@ public class MemberFilter {
     private static final String CLIENT_ID = "36aab894-f11b-42cd-8874-8797e0a3f062";
     private static final String CLIENT_SECRET = "7487466ac007d96c3c246291d1fc2d54884a8349f83a64a0c75cade982173214";
     private static final String BGMEA_API_URL = "http://36.255.69.82:81/api/v1/member/infos";
-    private static final String COMBINED_REG_NO_FILE_PATH = "G:\\Personal Project\\JavaBasics\\src\\main\\resources\\new\\members\\regNo.json";
-    private static final String ACTIVE_REG_NO_FILE_PATH = "G:\\Personal Project\\JavaBasics\\src\\main\\resources\\new\\members\\active.json";
-    private static final String INACTIVE_REG_NO_FILE_PATH = "G:\\Personal Project\\JavaBasics\\src\\main\\resources\\new\\members\\inactive.json";
+    private static final String COMBINED_REG_NO_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\members\\regNo.json";
+    private static final String ACTIVE_REG_NO_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\members\\active.json";
+    private static final String INACTIVE_REG_NO_FILE_PATH = "E:\\Project\\JavaBasics\\src\\main\\resources\\new\\members\\inactive.json";
 
     private static String getBearerToken() {
         String requestBody = "{\"clientId\": \"" + CLIENT_ID + "\", \"clientSecret\": \"" + CLIENT_SECRET + "\"}";
@@ -59,7 +59,7 @@ public class MemberFilter {
     }
 
     private static String createBgmeaApiUrl(String memberShipNo) {
-        return BGMEA_API_URL + "?membershipId=" + memberShipNo ;
+        return BGMEA_API_URL + "?membershipId=" + memberShipNo;
     }
 
     private static JSONObject getJsonObject(HttpURLConnection conn) throws IOException {
@@ -124,7 +124,6 @@ public class MemberFilter {
         return progressBar.toString();
     }
 
-
     public static void main(String[] args) {
         List<Integer> activeMembers = new ArrayList<>();
         List<Integer> inactiveMembers = new ArrayList<>();
@@ -141,6 +140,8 @@ public class MemberFilter {
             JSONArray regNo = inputJson.getJSONArray("regNo");
             int totalRegNos = regNo.length();
 
+            System.out.println("Processing REG NOs:");
+
             for (int i = 0; i < totalRegNos; i++) {
                 String memberShipNo = regNo.get(i).toString();
                 String bgmeaUrl = createBgmeaApiUrl(memberShipNo);
@@ -153,18 +154,28 @@ public class MemberFilter {
 
                 inactiveMembers.add(Integer.valueOf(memberShipNo));
 
-                System.out.print("\r[" + getProgressBar(i + 1, totalRegNos) + "] " + String.format("%.1f%%", (double) (i + 1) / totalRegNos * 100) + " - Processed REG NO: " + memberShipNo);
+                System.out.println("Processed REG NO: " + memberShipNo);
                 Thread.sleep(100);
             }
 
             System.out.println();
-            System.out.println("Active Members: " + (long) activeMembers.size());
-            System.out.println();
-            System.out.println("Inactive Members: " + (long) inactiveMembers.size());
+            System.out.println("Active Members: " + activeMembers);
 
+            // Create JSON array
+            JSONArray jsonArray = new JSONArray(activeMembers);
+            // Print the JSON array
+            System.out.println("Active Members JSON: " + jsonArray.toString());
+
+            // Save JSON array to file
+            try (FileWriter fileWriter = new FileWriter("activeMembers.json")) {
+                fileWriter.write(jsonArray.toString());
+                System.out.println("JSON array saved to activeMembers.json");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             System.out.println();
-            saveAndPrint(activeMembers, ACTIVE_REG_NO_FILE_PATH);
+            System.out.println("Inactive Members: " + inactiveMembers);
             saveAndPrint(inactiveMembers, INACTIVE_REG_NO_FILE_PATH);
 
         } catch (IOException | InterruptedException e) {
