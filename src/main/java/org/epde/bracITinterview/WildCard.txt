@@ -1,0 +1,19 @@
+SQL Wildcards and Examples:
+
+Percent sign (%): Represents zero, one, or multiple characters.
+- SELECT * FROM Customers WHERE Name LIKE 'A%'; -- finds any values that start with "A".
+- SELECT * FROM Customers WHERE Name LIKE '%a'; -- finds any values that end with "a".
+- SELECT * FROM Customers WHERE Name LIKE '%or%'; -- finds any values that have "or" in any position.
+
+Underscore (_): Represents a single character.
+- SELECT * FROM Customers WHERE Name LIKE '_a%'; -- finds any values that have "a" as the second character.
+- SELECT * FROM Customers WHERE Name LIKE 'A__%'; -- finds any values that start with "A" and are at least three characters in length.
+
+Square brackets ([]): Represents any single character within the brackets.
+- SELECT * FROM Customers WHERE Name LIKE '[A-C]%'; -- finds any values that start with "A", "B", or "C".
+
+Caret (^): When used inside square brackets, it represents any character not in the brackets.
+- SELECT * FROM Customers WHERE Name LIKE '[^A-C]%'; -- finds any values that do not start with "A", "B", or "C".
+
+Hyphen (-): Used inside square brackets to specify a range of characters.
+- SELECT * FROM Customers WHERE Name LIKE '[a-z]%'; -- finds any values that start with a lowercase letter.
